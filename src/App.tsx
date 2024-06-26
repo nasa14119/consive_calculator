@@ -1,6 +1,7 @@
 import moment from 'moment/min/moment-with-locales'
 import './index.css'
 import { useControllerStore } from './context/controller'
+import { NewPage } from './pages/New';
 moment.locale("es")
 
 function App() {
@@ -10,13 +11,13 @@ function App() {
     <>
       <main className='min-h-[100dvh]'>
         {
-          controllerStore === "new" && <h1>Hola Desde New</h1>
+          controllerStore === "new" && <NewPage/>
         }
         {
           controllerStore === "result" && <h1>Hola Desde Result</h1>
         }
       </main>
-      <div className='fixed bottom-2 text-sm flex gap-1 *:outline outline-slate-300 *:rounded-3xl *:p-2'>
+      <div className='bg-[var(--background)] z-50 fixed bottom-2 text-sm flex gap-1 *:outline outline-slate-300 *:rounded-3xl *:p-2'>
         <button onClick={() => changePage('new')}>Change New</button>
         <button onClick={() => changePage('result')}>Change Result</button>
       </div>

@@ -1,0 +1,23 @@
+.select-prematuro-container{
+    display: grid;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        ". arrow"
+        ". arrow"
+    ;
+}
+.select-prematuro{
+    width: 100%;
+    appearance: none;
+    background-color: var(--background);
+    outline: none;
+    @apply px-2; 
+}
+.arrow{
+    transition: transform 250ms ease; 
+    @apply w-full flex justify-center items-center; 
+}
+.arrow[data-state="true"]{
+    transform: rotate(-90deg);
+}
