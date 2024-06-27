@@ -6,6 +6,6 @@ type StoreController = {
     changePage: (v: Pages) => void
 }
 export const useControllerStore = create<StoreController>( (set) => ({
-    page: "new", 
+    page: "result", 
     changePage : (v) => set(state => ({...state, page: v}))
 }))

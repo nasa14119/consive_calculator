@@ -26,6 +26,7 @@ export function SelectPrematuro() {
         value={selectedValue}
         onChange={(e) => setSelectValue(e.target.value)}
         onFocus={() => setVisible(true)}
+        name="prematuro"
       />
       <span className="arrow [grid-area:arrow]" data-state={isVisible}>
         <ArrowIcon />

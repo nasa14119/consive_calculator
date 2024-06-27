@@ -2,6 +2,7 @@ import moment from 'moment/min/moment-with-locales'
 import './index.css'
 import { useControllerStore } from './context/controller'
 import { NewPage } from './pages/New';
+import { ResultPage } from './pages/Results';
 moment.locale("es")
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
           controllerStore === "new" && <NewPage/>
         }
         {
-          controllerStore === "result" && <h1>Hola Desde Result</h1>
+          controllerStore === "result" && <ResultPage/>
         }
       </main>
       <div className='bg-[var(--background)] z-50 fixed bottom-2 text-sm flex gap-1 *:outline outline-slate-300 *:rounded-3xl *:p-2'>
