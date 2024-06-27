@@ -33,7 +33,7 @@ export function SelectPrematuro() {
       </span>
       <ul
         data-state={isVisible}
-        className="menu-option absolute top-full max-h-[175px] overflow-y-scroll bg-black/20 w-full rounded-3xl p-3 cursor-pointer max-w-[500px]"
+        className="menu-option absolute top-full max-h-[175px] overflow-y-scroll bg-black/20 w-full rounded-3xl p-3 cursor-pointer max-w-[500px] no-scrollbar"
       >
         {Options.map((v) => (
           <li
