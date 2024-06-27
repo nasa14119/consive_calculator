@@ -1,6 +1,6 @@
 import moment from "moment";
 import { SelectPrematuro } from "../components/Select";
-import { Input, InputDay } from "../components/Select/Input";
+import { Input, InputDay } from "../components/Input";
 
 export function NewPage(){
     return (
