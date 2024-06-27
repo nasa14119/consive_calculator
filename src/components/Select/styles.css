@@ -21,3 +21,20 @@
 .arrow[data-state="true"]{
     transform: rotate(-90deg);
 }
+.menu-option{
+    transition: all 250ms ease;
+    transition-delay: 50ms;
+    transform-origin: top left;
+}
+.menu-option[data-state="true"]{
+    transform: scaleY(1);
+}
+.menu-option[data-state="false"]{
+    transform: scaleY(0);
+}
+.menu-option[data-state="true"] *{
+    visibility: visible;
+}
+.menu-option[data-state="false"] *{
+    visibility: hidden;
+}

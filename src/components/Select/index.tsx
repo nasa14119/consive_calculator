@@ -18,7 +18,7 @@ export function SelectPrematuro() {
   return (
     <div
       className="relative select-prematuro-container"
-      onClick={() => setVisible(prev => !prev)}
+      onClick={() => setVisible((prev) => !prev)}
     >
       <span>¿Eres Prematuro?</span>
       <input
@@ -30,22 +30,23 @@ export function SelectPrematuro() {
       <span className="arrow [grid-area:arrow]" data-state={isVisible}>
         <ArrowIcon />
       </span>
-      {isVisible && (
-        <ul className="absolute top-full bg-black/20 w-full rounded-3xl p-3 cursor-pointer max-w-[500px]">
-          {Options.map((v) => (
-            <li
-              key={v.value}
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectValue(v.body);
-                setVisible(false);
-              }}
-            >
-              {v.body}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul
+        data-state={isVisible}
+        className="menu-option absolute top-full max-h-[175px] overflow-y-scroll bg-black/20 w-full rounded-3xl p-3 cursor-pointer max-w-[500px]"
+      >
+        {Options.map((v) => (
+          <li
+            key={v.value}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectValue(v.body);
+              setVisible(false);
+            }}
+          >
+            {v.body}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
