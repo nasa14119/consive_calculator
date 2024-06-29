@@ -6,13 +6,14 @@ import { Message, Messages } from "../utils/Messages";
 import { useControllerStore } from "./controller";
 const SchemaSubmit = z.object({
     nombre: z.string().min(4).max(20), 
-    nacimiento: z.tuple([z.number().min(1900).max(new Date().getFullYear()),z.number().min(1).max(12), z.number().min(1).max(31)])
+    nacimiento: z.tuple([z.number().min(1900).max(new Date().getFullYear()),z.number().min(1).max(12), z.number().min(1).max(31)]), 
+    prematuro: z.number().nullable()
 })
 type Context = {
     id: string,
     nombre: string, 
     nacimiento: number[], 
-    prematuro?: number | null
+    prematuro: number | null
 }
 export type newValue = z.infer< typeof SchemaSubmit>
 type Principal = {
@@ -59,7 +60,8 @@ export const useDetailsStore = create<Details>(set => ({
         const contextPrincipal = usePrincipalStore.getState().context
         if(contextPrincipal === null) return 
         const [ano, mes, dia] = contextPrincipal.nacimiento
-        const consive = () => moment([ano, mes - 1, dia]).locale("es").subtract(9, "month")
+        let consive: () => moment.Moment; 
+        contextPrincipal.prematuro === null ? consive = () => moment([ano, mes - 1, dia]).locale("es").subtract(40, "weeks"): consive = () => moment([ano, mes - 1, dia]).locale("es").subtract(contextPrincipal.prematuro, "weeks")
         const messageFactory = new Messages(consive); 
         const values = await messageFactory.getMessage()
         const newMessage:MessageDetails = {

@@ -55,7 +55,6 @@ const Septiembre: Month= (dia) =>{
 const Octubre: Month = (dia) => {
     const octubre = db.octubre
     if(dia <= 10) return octubre[0]
-    console.log(dia)
     if(dia <= 20) return octubre[1]
     return octubre[2]
 }

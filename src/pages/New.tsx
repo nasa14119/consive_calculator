@@ -4,6 +4,7 @@ import { Input, InputDay } from "../components/Input";
 import { newValue, usePrincipalStore } from "../context/principal";
 import { FormEventHandler } from "react";
 import { useControllerStore } from "../context/controller";
+import { removeNonNumeric } from "../utils";
 
 export function NewPage(){
     const sendToStore = usePrincipalStore(state => state.handleSubmit); 
@@ -12,9 +13,11 @@ export function NewPage(){
       e.preventDefault()
       const data = new FormData(e.target as HTMLFormElement); 
       const parseData = Object.fromEntries(data)
+      const prematuro = parseData.prematuro === "No" ? null : removeNonNumeric(parseData.prematuro as string)
       const newValue: newValue = {
         nacimiento: [Number(parseData.ano), Number(parseData.mes), Number(parseData.dia)], 
-        nombre: parseData.nombre.toString()
+        nombre: parseData.nombre.toString(),
+        prematuro
       }
       try {
         sendToStore(newValue); 
