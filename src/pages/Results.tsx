@@ -9,7 +9,8 @@ export function ResultPage() {
 
 
     return (
-      <div className="min-h-[100dvh] grid place-content-center relative grid-cols-[80%]">
+      <>
+      <div className="min-h-[100dvh] grid place-content-center relative grid-cols-[80%] max-w-[750px] md:mx-auto">
         <header className="relative">
           <h2 className="text-6xl font-bold capitalize text-center my-2">
             {message?.month}
@@ -34,11 +35,8 @@ export function ResultPage() {
           </div>
           <p className="font-light text-sm max-w-[75ch]">{message?.body}</p>
         </main>
-        <div className="absolute inset-0 -z-10 before:absolute before:inset-0 before:bg-black/70">
-          <img className="size-full object-cover" src={message?.img} alt="" />
-        </div>
         <div
-          className="fixed bottom-5 left-5 p-2 flex items-center gap-x-2 bg-zinc-600/40 rounded-2xl"
+          className="cursor-pointer fixed bottom-5 left-5 p-2 flex items-center gap-x-2 bg-zinc-600/40 rounded-2xl"
           onClick={() => {
             const redirect = useControllerStore.getState().changePage;
             redirect("new");
@@ -61,5 +59,9 @@ export function ResultPage() {
           <span className="text-xs">Nueva Persona</span>
         </div>
       </div>
-    );
+              <div className="absolute inset-0 -z-10 before:absolute before:inset-0 before:bg-black/70">
+              <img className="size-full object-cover" src={message?.img} alt="" />
+            </div>
+    
+    </>);
 }
