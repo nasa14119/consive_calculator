@@ -1,0 +1,30 @@
+.history-menu{
+    transition: all 250ms ease-in;
+    overflow: visible;
+}
+.history-menu[data-state="true"]{
+    transform: translateX(0);
+}
+.history-menu[data-state="false"]{
+    transform: translateX(100%);
+}
+@keyframes getIn {
+    to{
+        opacity: 1;
+    }
+}
+.history-button{
+    opacity: 0;
+    animation: getIn 300ms ease forwards;
+    animation-delay: 250ms;
+}
+.trash-icon{
+    transition: opacity 200ms ease-in;
+    transition-delay: 100ms;
+}
+.trash-icon[data-visible="true"]{
+    @apply text-red-700; 
+}
+.trash-icon[data-visible="false"]{
+    @apply text-white; 
+}

@@ -4,12 +4,13 @@ import { uid } from "../utils";
 import moment from "moment/min/moment-with-locales";
 import { Message, Messages } from "../utils/Messages";
 import { useControllerStore } from "./controller";
+import { usePersistant } from "./pesistent";
 const SchemaSubmit = z.object({
     nombre: z.string().min(4).max(20), 
     nacimiento: z.tuple([z.number().min(1900).max(new Date().getFullYear()),z.number().min(1).max(12), z.number().min(1).max(31)]), 
     prematuro: z.number().nullable()
 })
-type Context = {
+export type Context = {
     id: string,
     nombre: string, 
     nacimiento: number[], 
@@ -26,6 +27,7 @@ export const usePrincipalStore = create<Principal>( (set) => ({
     context: null, 
     handleSubmit: async ( values) => {
         const updateResult = useDetailsStore.getState().updateMessage
+        const saveValue = usePersistant.getState().pushNewValue
         const parse = SchemaSubmit.safeParse(values); 
         if("error" in parse) throw parse.error?.errors
         const newValue : Context = {
@@ -37,6 +39,7 @@ export const usePrincipalStore = create<Principal>( (set) => ({
             context: {...newValue}, 
         })); 
         updateResult(); 
+        saveValue(newValue)
     }, 
     setContextTo: (context: Context) => {
         const updateResult = useDetailsStore.getState().updateMessage
