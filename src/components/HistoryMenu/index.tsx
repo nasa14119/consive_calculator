@@ -16,7 +16,7 @@ export function HistoryMenu() {
         return COLORS[currentIndex];
     }
     const { persistant } = usePersistant(); 
-    const [isVisible , setVisible] = useState(true); 
+    const [isVisible , setVisible] = useState(false); 
     const show = () => setVisible(prev => !prev)
   return (
     <>
