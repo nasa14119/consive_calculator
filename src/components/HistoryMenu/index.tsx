@@ -33,6 +33,7 @@ export function HistoryMenu() {
               color={move()}
               {...context}
               index={i}
+              show={show}
               key={context.id}
             />
           );

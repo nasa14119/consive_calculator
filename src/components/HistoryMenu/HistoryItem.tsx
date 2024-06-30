@@ -4,7 +4,8 @@ import {SwipeItem} from "./SwipeItem";
 
 interface Props extends Context {
     index: number, 
-    color: string
+    color: string, 
+    show: () => void
 }
 
 const IconLetter = ({ s, color }: { s: string; color: string }) => {
@@ -23,6 +24,7 @@ export function HistoryItem(props: Props) {
     const color = props.color ??  "#e56b6f"
     const handleClick = () => {
         setFromIndex(props.index)
+        props.show(); 
     }
     return (
       <SwipeItem

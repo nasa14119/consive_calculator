@@ -11,8 +11,8 @@ export function SwipeItem({children, className, id, color, ...rest}: Props) {
     const cordenates = useRef({start_x: 0, end_x:0}); 
     const [move, setMove] = useState(0)
     const touch = useRef(false)
-    const handleDelete = (e: React.MouseEvent<HTMLSpanElement>) => {
-        e.stopPropagation(); 
+    const handleDelete = (e?: React.MouseEvent<HTMLSpanElement>) => {
+        e && e.stopPropagation(); 
         deleteId(id)
     }
     const handleDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -28,6 +28,7 @@ export function SwipeItem({children, className, id, color, ...rest}: Props) {
             handleDelete(e)
         }
     }
+
     const handleMove = (e: React.MouseEvent<HTMLDivElement>) =>{
         if(!container.current) return 
         const current = (e.clientX - cordenates.current.start_x) * - 1
@@ -39,20 +40,43 @@ export function SwipeItem({children, className, id, color, ...rest}: Props) {
         touch.current = false
         setMove(0);  
     }
-    useEffect(() =>{
-        if(container.current === null) return 
-        const handleTouch = () => {
-            touch.current = true
-        }
-        container.current.addEventListener("click", handleTouch)
-        return container.current.removeEventListener("click", handleTouch)
-    },[])
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+      const x = e.touches[0].clientX
+      const state = cordenates.current
+      touch.current = true
+      state.start_x = x
+  }
+    const handleTouchMove = (e: React.TouchEvent) => {
+      if(!container.current) return 
+      const x = e.touches[0].clientX
+      const current = (x - cordenates.current.start_x) * - 1
+      if(!touch.current) return
+      setMove(current * 5 / 130)
+  }
+    const handleTouchEnd = () => {
+      resetState()
+      if(move >= 5){
+        handleDelete()
+      }
+  }
+  useEffect(() => {
+    if (container.current === null) return;
+    const handleTouch = () => {
+      touch.current = true;
+    };
+    container.current.addEventListener("click", handleTouch);
+    return container.current.removeEventListener("click", handleTouch);
+  }, []);
   return (
     <>
       <div
         className={`history-item ${className} select-none`}
         ref={container}
         onMouseMove={handleMove}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         onMouseDown={handleDown}
         onMouseUp={handleUp}
         onMouseLeave={resetState}
