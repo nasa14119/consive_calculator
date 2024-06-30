@@ -21,7 +21,7 @@ export function HistoryMenu() {
   return (
     <>
       <div
-        className="history-menu z-50 fixed top-2 right-0 w-[45vw] aspect-square no-scrollbar overflow-scroll flex flex-col gap-y-2"
+        className="history-menu z-50 fixed top-2 right-0 w-[45vw] max-h-[45vw] no-scrollbar overflow-scroll flex flex-col gap-y-2"
         data-state={isVisible}
         onClick={(e) => {
           e.stopPropagation();
