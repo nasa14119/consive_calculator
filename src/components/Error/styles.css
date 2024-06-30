@@ -1,0 +1,20 @@
+@keyframes error-animation{
+    from {
+        opacity: 0; 
+    }
+    25%{
+        opacity: 1;
+    }
+    75%{
+        opacity: 1;
+    }
+    to{
+        opacity: 0
+    }
+}
+.error-message{
+    @apply absolute inset-3  w-[80%] bg-red-900/70 mx-auto p-2 grid place-content-center rounded-2xl; 
+    opacity: 0;
+    animation: error-animation 1500ms ease forwards;
+    animation-delay: 10ms;
+}

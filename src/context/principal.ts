@@ -6,10 +6,23 @@ import { Message, Messages } from "../utils/Messages";
 import { useControllerStore } from "./controller";
 import { usePersistant } from "./pesistent";
 const SchemaSubmit = z.object({
-    nombre: z.string().min(4).max(20), 
-    nacimiento: z.tuple([z.number().min(1900).max(new Date().getFullYear()),z.number().min(1).max(12), z.number().min(1).max(31)]), 
-    prematuro: z.number().nullable()
-})
+  nombre: z.string({message: "Error en nombre" }).min(4, "El nombre es requerido").max(20, "El nombre no puede ser mayor a 20 letras"),
+  nacimiento: z.tuple([
+    z
+      .number({ message: "Error en año proporcionado" })
+      .min(1900, "El año es requerido")
+      .max(new Date().getFullYear(), "El año no puede ser mayor al año actual"),
+    z
+      .number({ message: "Error en mes" })
+      .min(1, "El mes no puede ser menor a 1")
+      .max(12, "El mes no puede ser mayor a 12"),
+    z
+      .number({ message: "Error en día" })
+      .min(1, "El día no puede ser menor a 1")
+      .max(31, "El día no puede ser mayor a 31"),
+  ]),
+  prematuro: z.number().nullable(),
+});
 export type Context = {
     id: string,
     nombre: string, 
@@ -19,7 +32,7 @@ export type Context = {
 export type newValue = z.infer< typeof SchemaSubmit>
 type Principal = {
     context: null | Context, 
-    handleSubmit: (v:newValue) => void, 
+    handleSubmit: (v:newValue) => Promise<void> , 
     setContextTo: (v:Context) => void
 }
 
@@ -29,7 +42,7 @@ export const usePrincipalStore = create<Principal>( (set) => ({
         const updateResult = useDetailsStore.getState().updateMessage
         const saveValue = usePersistant.getState().pushNewValue
         const parse = SchemaSubmit.safeParse(values); 
-        if("error" in parse) throw parse.error?.errors
+        if("error" in parse) throw parse.error?.errors[0].message
         const newValue : Context = {
             id: uid(), 
             ...parse.data
