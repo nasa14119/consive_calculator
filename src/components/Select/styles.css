@@ -19,12 +19,12 @@
     @apply w-full flex justify-center items-center; 
 }
 .arrow[data-state="true"]{
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
 }
 .menu-option{
     transition: all 250ms ease;
     transition-delay: 50ms;
-    transform-origin: top left;
+    transform-origin: bottom left;
 }
 .menu-option[data-state="true"]{
     transform: scaleY(1);
